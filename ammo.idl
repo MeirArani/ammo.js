@@ -25,6 +25,7 @@ interface btVector3 {
   void btVector3();
   void btVector3(float x, float y, float z);
   float length();
+  float length2();
   float x();
   float y();
   float z();
@@ -1279,3 +1280,4 @@ interface btSoftBodyHelpers {
   btSoftBody CreateFromTriMesh([Ref] btSoftBodyWorldInfo worldInfo, float[] vertices, long[] triangles, long ntriangles, boolean randomizeConstraints);
   btSoftBody CreateFromConvexHull([Ref] btSoftBodyWorldInfo worldInfo, [Const] btVector3 vertices, long nvertices, boolean randomizeConstraints);
 };
+
