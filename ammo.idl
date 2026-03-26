@@ -657,6 +657,7 @@ interface btCollisionDispatcher {
 btCollisionDispatcher implements btDispatcher;
 
 interface btOverlappingPairCallback {
+  void removeOverlappingPairsContainingProxy(btBroadphaseProxy proxy, btDispatcher dispatcher);
 };
 
 interface btOverlappingPairCache {
@@ -891,6 +892,7 @@ interface btCollisionWorld {
   void convexSweepTest([Const] btConvexShape castShape, [Const, Ref] btTransform from, [Const, Ref] btTransform to, [Ref] ConvexResultCallback resultCallback, float allowedCcdPenetration);
   void contactPairTest(btCollisionObject colObjA, btCollisionObject colObjB, [Ref] ContactResultCallback resultCallback);
   void contactTest(btCollisionObject colObj, [Ref] ContactResultCallback resultCallback);
+  void setForceUpdateAllAabbs(boolean forceUpdateAllAabbs);
   void updateSingleAabb(btCollisionObject colObj);
   void setDebugDrawer(btIDebugDraw debugDrawer);
   btIDebugDraw getDebugDrawer();
