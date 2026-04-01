@@ -1,0 +1,2 @@
+/Users/icer/source/hubs/emsdk/upstream/emscripten/emar qc libBulletFileLoader.a CMakeFiles/BulletFileLoader.dir/bChunk.cpp.o CMakeFiles/BulletFileLoader.dir/bDNA.cpp.o CMakeFiles/BulletFileLoader.dir/bFile.cpp.o CMakeFiles/BulletFileLoader.dir/btBulletFile.cpp.o
+/Users/icer/source/hubs/emsdk/upstream/emscripten/emranlib libBulletFileLoader.a

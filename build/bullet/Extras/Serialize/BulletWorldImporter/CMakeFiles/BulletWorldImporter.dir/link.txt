@@ -1,0 +1,2 @@
+/Users/icer/source/hubs/emsdk/upstream/emscripten/emar qc libBulletWorldImporter.a CMakeFiles/BulletWorldImporter.dir/btBulletWorldImporter.cpp.o CMakeFiles/BulletWorldImporter.dir/btWorldImporter.cpp.o
+/Users/icer/source/hubs/emsdk/upstream/emscripten/emranlib libBulletWorldImporter.a

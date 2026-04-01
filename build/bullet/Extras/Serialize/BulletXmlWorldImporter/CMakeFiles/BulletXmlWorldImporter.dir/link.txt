@@ -1,0 +1,2 @@
+/Users/icer/source/hubs/emsdk/upstream/emscripten/emar qc libBulletXmlWorldImporter.a CMakeFiles/BulletXmlWorldImporter.dir/btBulletXmlWorldImporter.cpp.o CMakeFiles/BulletXmlWorldImporter.dir/string_split.cpp.o CMakeFiles/BulletXmlWorldImporter.dir/tinyxml.cpp.o CMakeFiles/BulletXmlWorldImporter.dir/tinystr.cpp.o CMakeFiles/BulletXmlWorldImporter.dir/tinyxmlerror.cpp.o CMakeFiles/BulletXmlWorldImporter.dir/tinyxmlparser.cpp.o
+/Users/icer/source/hubs/emsdk/upstream/emscripten/emranlib libBulletXmlWorldImporter.a

@@ -1,0 +1,1 @@
+/Users/icer/source/hubs/emsdk/upstream/emscripten/em++ -O3 -DNDEBUG -L/opt/homebrew/opt/llvm/lib CMakeFiles/AppHelloWorld.dir/HelloWorld.cpp.o -o AppHelloWorld.js  ../../src/BulletDynamics/libBulletDynamics.a ../../src/BulletCollision/libBulletCollision.a ../../src/LinearMath/libLinearMath.a

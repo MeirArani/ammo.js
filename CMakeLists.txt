@@ -11,9 +11,10 @@ set(AMMO_HEADER_FILE ${CMAKE_CURRENT_SOURCE_DIR}/ammo.h)
 set(AMMO_IDL_FILE ${CMAKE_CURRENT_SOURCE_DIR}/ammo.idl)
 set(AMMO_ONLOAD_FILE ${CMAKE_CURRENT_SOURCE_DIR}/onload.js)
 set(BULLET_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bullet/src/)
+set(BULLET_EXTRAS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bullet/Extras)
 set(BUILD_EXTRAS ON)
 
-set(BULLET_TARGETS BulletCollision BulletDynamics BulletSoftBody LinearMath)
+set(BULLET_TARGETS BulletCollision BulletDynamics BulletSoftBody LinearMath HACD VHACD)
 foreach(_TARGET ${BULLET_TARGETS})
   list(APPEND BULLET_LIBS $<TARGET_FILE:${_TARGET}>)
 endforeach()
@@ -62,8 +63,6 @@ else()
 endif()
 
 set(EMCC_JS_ARGS ${EMCC_ARGS}
-  -s AGGRESSIVE_VARIABLE_ELIMINATION=1
-  -s ELIMINATE_DUPLICATE_FUNCTIONS=1
   -s LEGACY_VM_SUPPORT=1
   -s SINGLE_FILE=1
   -s WASM=0)
@@ -75,6 +74,7 @@ set(EMCC_WASM_ARGS ${EMCC_ARGS}
 set(EMCC_GLUE_ARGS
   -c
   -I${BULLET_SRC_DIR}
+  -I${BULLET_EXTRAS_DIR}
   -include${AMMO_HEADER_FILE})
 
 
@@ -103,7 +103,7 @@ add_custom_target(ammo-bindings ALL DEPENDS glue.js glue.o)
 #######################################
 add_custom_command(
   OUTPUT ammo.js
-  COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_JS_ARGS} -o ammo.js --emit-tsd interface.d.ts
+  COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_JS_ARGS} -o ammo.mjs --emit-tsd interface.d.ts
   DEPENDS ammo-bindings ${AMMO_FRONT_MATTER_FILE} ${AMMO_ONLOAD_FILE} ${BULLET_TARGETS}
   COMMENT "Building ammo javascript"
   VERBATIM)
@@ -112,9 +112,9 @@ add_custom_target(ammo-javascript ALL DEPENDS ammo.js)
 
 #######################################
 add_custom_command(
-  OUTPUT ammo.wasm.js ammo.wasm.wasm
+  OUTPUT ammo.wasm.js ammo.wasm
   COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_WASM_ARGS} -o ammo.wasm.js
   DEPENDS ammo-bindings ${AMMO_FRONT_MATTER_FILE} ${AMMO_ONLOAD_FILE} ${BULLET_TARGETS}
   COMMENT "Building ammo webassembly"
   VERBATIM)
-add_custom_target(ammo-wasm ALL DEPENDS ammo.wasm.js ammo.wasm.wasm)
+add_custom_target(ammo-wasm ALL DEPENDS ammo.wasm.js ammo.wasm)

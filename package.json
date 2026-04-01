@@ -8,7 +8,7 @@
     ".": {
       "types": "./dist/ammo.d.ts",
       "import": "./dist/ammo.js",
-      "require": "./ammo.js"
+      "require": "./dist/ammo.js"
     }
   },
   "repository": {
@@ -22,11 +22,19 @@
   "homepage": "https://github.com/kripken/ammo.js",
   "devDependencies": {
     "ava": "^3.11.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3",
+    "vite-plugin-top-level-await": "^1.6.0",
+    "vite-plugin-wasm": "^3.6.0",
+    "webidl-dts-gen": "^1.12.0",
     "webidl2ts": "^1.0.4"
   },
   "scripts": {
-    "test": "npm run test-js && npm run test-wasm",
+    "test": "yarn run test-js && yarn run test-wasm",
     "test-js": "AMMO_PATH=dist/ammo.js ava",
-    "test-wasm": "AMMO_PATH=dist/ammo.wasm.js ava"
+    "test-wasm": "AMMO_PATH=dist/ammo.wasm.js ava",
+    "generate": "yarn generate:module && yarn generate:ambient",
+    "generate:module": "webidl-dts-gen -i ./ammo.idl -n Ammo -ed -o ./dist/ammo.d.ts",
+    "generate:ambient": "webidl-dts-gen -i ./ammo.idl -n Ammo  -e -o ./dist/ammo-ambient.d.ts"
   }
 }

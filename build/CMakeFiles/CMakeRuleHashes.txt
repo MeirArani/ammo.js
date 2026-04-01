@@ -1,0 +1,8 @@
+# Hashes of file build rules.
+e5e3c0d64984cf63db5625555b70ad25 CMakeFiles/ammo-bindings
+e5e3c0d64984cf63db5625555b70ad25 CMakeFiles/ammo-javascript
+e5e3c0d64984cf63db5625555b70ad25 CMakeFiles/ammo-wasm
+29e63290ba4905ca95930fe7f697d4a9 ammo.js
+bf84c25ca6ab0ae346c2ea53170f59bc ammo.wasm.js
+0f7ece16171ad8251c186ec899d99339 glue.cpp
+55acb518161040143b65673e70e5d859 glue.o

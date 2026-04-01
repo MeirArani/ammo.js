@@ -1,11 +1,14 @@
-declare module "@hubs/ammo.js"
-{
-  export default function Ammo<T>(target?: T): Promise<T & typeof Ammo>;
-  export namespace Ammo {
+export default Ammo;
+declare function Ammo<T>(target?: T): Promise<T & typeof Ammo>;
+declare module "@hubs/ammo.js" {
   function destroy(obj: any): void;
   function _malloc(size: number): number;
   function _free(ptr: number): void;
-  function UTF8ToString(warningString: string): string;
+  function wrapPointer<C extends new (...args: any) => any>(ptr: number, Class: C): InstanceType<C>;
+  function getPointer(obj: unknown): number;
+  function castObject<C extends new (...args: any) => any>(object: unknown, Class: C): InstanceType<C>;
+  function compare(object1: unknown, object2: unknown): boolean;
+  function UTF8ToString(ptr: number, maxBytesToRead?: number | undefined, ignoreNul?: boolean | undefined): string;
   const HEAP8: Int8Array;
   const HEAP16: Int16Array;
   const HEAP32: Int32Array;
@@ -28,18 +31,16 @@ declare module "@hubs/ammo.js"
     setDebugMode(debugMode: number): void;
     getDebugMode(): number;
   }
-  class DebugDrawer {
+  class DebugDrawer extends btIDebugDraw {
     constructor();
-    drawLine(from: btVector3, to: btVector3, color: btVector3): void;
-    drawContactPoint(
-      pointOnB: btVector3,
-      normalOnB: btVector3,
-      distance: number,
-      lifeTime: number,
-      color: btVector3
-    ): void;
-    reportErrorWarning(warningString: string): void;
-    draw3dText(location: btVector3, textString: string): void;
+    // @ts-expect-error: emscripten binder passes pointers, not wrapped classes
+    drawLine(from: number, to: number, color: number): void;
+    // @ts-expect-error: emscripten binder passes pointers, not wrapped classes
+    drawContactPoint(pointOnB: number, normalOnB: number, distance: number, lifeTime: number, color: number): void;
+    // @ts-expect-error: emscripten binder passes pointers, not wrapped classes
+    reportErrorWarning(warningString: number): void;
+    // @ts-expect-error: emscripten binder passes pointers, not wrapped classes
+    draw3dText(location: number, textString: number): void;
     setDebugMode(debugMode: number): void;
     getDebugMode(): number;
   }
@@ -66,7 +67,7 @@ declare module "@hubs/ammo.js"
     constructor();
     constructor(x: number, y: number, z: number, w: number);
     w(): number;
-    override setValue(x: number, y: number, z: number, w?: number): void; //HACK: Since Vector3 had no w component.
+    setValue(x: number, y: number, z: number, w: number): void;
   }
   class btQuadWord {
     x(): number;
@@ -122,10 +123,12 @@ declare module "@hubs/ammo.js"
     getWorldTransform(worldTrans: btTransform): void;
     setWorldTransform(worldTrans: btTransform): void;
   }
-  class MotionState {
+  class MotionState extends btMotionState {
     constructor();
-    getWorldTransform(worldTrans: btTransform): void;
-    setWorldTransform(worldTrans: btTransform): void;
+    // @ts-expect-error: emscripten binder passes pointers, not wrapped classes
+    getWorldTransform(worldTrans: number): void;
+    // @ts-expect-error: emscripten binder passes pointers, not wrapped classes
+    setWorldTransform(worldTrans: number): void;
   }
   class btDefaultMotionState extends btMotionState {
     constructor(startTrans?: btTransform, centerOfMassOffset?: btTransform);
@@ -265,14 +268,15 @@ declare module "@hubs/ammo.js"
       index1: number
     ): number;
   }
-  class ConcreteContactResultCallback {
+  class ConcreteContactResultCallback extends ContactResultCallback {
     constructor();
+    // @ts-expect-error: emscripten binder passes pointers, not wrapped classes
     addSingleResult(
-      cp: btManifoldPoint,
-      colObj0Wrap: btCollisionObjectWrapper,
+      cp: number,
+      colObj0Wrap: number,
       partId0: number,
       index0: number,
-      colObj1Wrap: btCollisionObjectWrapper,
+      colObj1Wrap: number,
       partId1: number,
       index1: number
     ): number;
@@ -413,9 +417,9 @@ declare module "@hubs/ammo.js"
     get_m_indices(): btIntArray;
     set_m_indices(m_indices: btIntArray): void;
     m_indices: btIntArray;
-    get_m_plane(): ReadonlyArray<number>;
-    set_m_plane(m_plane: ReadonlyArray<number>): void;
-    m_plane: ReadonlyArray<number>;
+    get_m_plane(index: number): number;
+    set_m_plane(index: number, m_plane: number): void;
+    m_plane: number;
   }
   class btVector3Array {
     size(): number;
@@ -483,7 +487,25 @@ declare module "@hubs/ammo.js"
     addIndex(index: number): void;
     getIndexedMeshArray(): btIndexedMeshArray;
   }
-  type PHY_ScalarType = "PHY_FLOAT" | "PHY_DOUBLE" | "PHY_INTEGER" | "PHY_SHORT" | "PHY_FIXEDPOINT88" | "PHY_UCHAR";
+  const PHY_FLOAT: number;
+  const PHY_DOUBLE: number;
+  const PHY_INTEGER: number;
+  const PHY_SHORT: number;
+  const PHY_FIXEDPOINT88: number;
+  const PHY_UCHAR: number;
+  type PHY_ScalarType =
+    | typeof PHY_FLOAT
+    | typeof PHY_DOUBLE
+    | typeof PHY_INTEGER
+    | typeof PHY_SHORT
+    | typeof PHY_FIXEDPOINT88
+    | typeof PHY_UCHAR;
+  function _emscripten_enum_PHY_ScalarType_PHY_FLOAT(): PHY_ScalarType;
+  function _emscripten_enum_PHY_ScalarType_PHY_DOUBLE(): PHY_ScalarType;
+  function _emscripten_enum_PHY_ScalarType_PHY_INTEGER(): PHY_ScalarType;
+  function _emscripten_enum_PHY_ScalarType_PHY_SHORT(): PHY_ScalarType;
+  function _emscripten_enum_PHY_ScalarType_PHY_FIXEDPOINT88(): PHY_ScalarType;
+  function _emscripten_enum_PHY_ScalarType_PHY_UCHAR(): PHY_ScalarType;
   class btConcaveShape extends btCollisionShape {}
   class btEmptyShape extends btConcaveShape {
     constructor();
@@ -531,10 +553,16 @@ declare module "@hubs/ammo.js"
     get_primitive_box(prim_index: number, primbox: btAABB): void;
     get_primitive_triangle(prim_index: number, triangle: btPrimitiveTriangle): void;
   }
+  const CONST_GIMPACT_COMPOUND_SHAPE: number;
+  const CONST_GIMPACT_TRIMESH_SHAPE_PART: number;
+  const CONST_GIMPACT_TRIMESH_SHAPE: number;
   type eGIMPACT_SHAPE_TYPE =
-    | "CONST_GIMPACT_COMPOUND_SHAPE"
-    | "CONST_GIMPACT_TRIMESH_SHAPE_PART"
-    | "CONST_GIMPACT_TRIMESH_SHAPE";
+    | typeof CONST_GIMPACT_COMPOUND_SHAPE
+    | typeof CONST_GIMPACT_TRIMESH_SHAPE_PART
+    | typeof CONST_GIMPACT_TRIMESH_SHAPE;
+  function _emscripten_enum_eGIMPACT_SHAPE_TYPE_CONST_GIMPACT_COMPOUND_SHAPE(): eGIMPACT_SHAPE_TYPE;
+  function _emscripten_enum_eGIMPACT_SHAPE_TYPE_CONST_GIMPACT_TRIMESH_SHAPE_PART(): eGIMPACT_SHAPE_TYPE;
+  function _emscripten_enum_eGIMPACT_SHAPE_TYPE_CONST_GIMPACT_TRIMESH_SHAPE(): eGIMPACT_SHAPE_TYPE;
   class btTetrahedronShapeEx {
     constructor();
     setVertices(v0: btVector3, v1: btVector3, v2: btVector3, v3: btVector3): void;
@@ -693,7 +721,7 @@ declare module "@hubs/ammo.js"
     getOverlappingPairCache(): btOverlappingPairCache;
   }
   class btCollisionConfiguration {}
-  class btDbvtBroadphase {
+  class btDbvtBroadphase extends btBroadphaseInterface {
     constructor();
   }
   class btBroadphaseProxy {
@@ -800,11 +828,19 @@ declare module "@hubs/ammo.js"
     getParam(num: number, axis: number): number;
     setParam(num: number, value: number, axis: number): void;
   }
+  const BT_CONSTRAINT_ERP: number;
+  const BT_CONSTRAINT_STOP_ERP: number;
+  const BT_CONSTRAINT_CFM: number;
+  const BT_CONSTRAINT_STOP_CFM: number;
   type btConstraintParams =
-    | "BT_CONSTRAINT_ERP"
-    | "BT_CONSTRAINT_STOP_ERP"
-    | "BT_CONSTRAINT_CFM"
-    | "BT_CONSTRAINT_STOP_CFM";
+    | typeof BT_CONSTRAINT_ERP
+    | typeof BT_CONSTRAINT_STOP_ERP
+    | typeof BT_CONSTRAINT_CFM
+    | typeof BT_CONSTRAINT_STOP_CFM;
+  function _emscripten_enum_btConstraintParams_BT_CONSTRAINT_ERP(): btConstraintParams;
+  function _emscripten_enum_btConstraintParams_BT_CONSTRAINT_STOP_ERP(): btConstraintParams;
+  function _emscripten_enum_btConstraintParams_BT_CONSTRAINT_CFM(): btConstraintParams;
+  function _emscripten_enum_btConstraintParams_BT_CONSTRAINT_STOP_CFM(): btConstraintParams;
   class btPoint2PointConstraint extends btTypedConstraint {
     constructor(rbA: btRigidBody, rbB: btRigidBody, pivotInA: btVector3, pivotInB: btVector3);
     constructor(rbA: btRigidBody, pivotInA: btVector3);
@@ -1296,9 +1332,9 @@ declare module "@hubs/ammo.js"
     m_gravity: btVector3;
   }
   class Face {
-    get_m_n(): ReadonlyArray<Node>;
-    set_m_n(m_n: ReadonlyArray<Node>): void;
-    m_n: ReadonlyArray<Node>;
+    get_m_n(index: number): Node;
+    set_m_n(index: number, m_n: Node): void;
+    m_n: Node;
     get_m_normal(): btVector3;
     set_m_normal(m_normal: btVector3): void;
     m_normal: btVector3;
@@ -1574,7 +1610,110 @@ declare module "@hubs/ammo.js"
       randomizeConstraints: boolean
     ): btSoftBody;
   }
+  class Vec3Long {
+    constructor(x: number, y: number, z: number);
+    X(): number;
+    Y(): number;
+    Z(): number;
+  }
+  class Vec3Real {
+    constructor(x: number, y: number, z: number);
+    X(): number;
+    Y(): number;
+    Z(): number;
+  }
+  class HACD {
+    constructor();
+    SetCompacityWeight(alpha: number): void;
+    SetVolumeWeight(beta: number): void;
+    SetConcavity(concavity: number): void;
+    SetNClusters(nClusters: number): void;
+    SetNVerticesPerCH(nVerticesPerCH: number): void;
+    SetPoints(points: Vec3Real): void;
+    SetNPoints(nPoints: number): void;
+    SetTriangles(triangles: Vec3Long): void;
+    SetNTriangles(nTriangles: number): void;
+    Compute(): void;
+    GetNClusters(): number;
+    GetNPointsCH(c: number): number;
+    GetNTrianglesCH(c: number): number;
+    GetCH(c: number, points: Vec3Real, triangles: Vec3Long): number;
+  }
+  class VHACD {
+    constructor();
+    Compute(
+      points: ReadonlyArray<number>,
+      stridePoints: number,
+      nPoints: number,
+      triangles: ReadonlyArray<number>,
+      strideTriangles: number,
+      nTriangles: number,
+      params: Parameters
+    ): boolean;
+    GetNConvexHulls(): number;
+    GetConvexHull(index: number, ch: ConvexHull): void;
+    Cancel(): void;
+    Clean(): void;
+    Release(): void;
+  }
+  class Parameters {
+    constructor();
+    get_m_concavity(): number;
+    set_m_concavity(m_concavity: number): void;
+    m_concavity: number;
+    get_m_alpha(): number;
+    set_m_alpha(m_alpha: number): void;
+    m_alpha: number;
+    get_m_beta(): number;
+    set_m_beta(m_beta: number): void;
+    m_beta: number;
+    get_m_gamma(): number;
+    set_m_gamma(m_gamma: number): void;
+    m_gamma: number;
+    get_m_minVolumePerCH(): number;
+    set_m_minVolumePerCH(m_minVolumePerCH: number): void;
+    m_minVolumePerCH: number;
+    get_m_resolution(): number;
+    set_m_resolution(m_resolution: number): void;
+    m_resolution: number;
+    get_m_maxNumVerticesPerCH(): number;
+    set_m_maxNumVerticesPerCH(m_maxNumVerticesPerCH: number): void;
+    m_maxNumVerticesPerCH: number;
+    get_m_depth(): number;
+    set_m_depth(m_depth: number): void;
+    m_depth: number;
+    get_m_planeDownsampling(): number;
+    set_m_planeDownsampling(m_planeDownsampling: number): void;
+    m_planeDownsampling: number;
+    get_m_convexhullDownsampling(): number;
+    set_m_convexhullDownsampling(m_convexhullDownsampling: number): void;
+    m_convexhullDownsampling: number;
+    get_m_pca(): number;
+    set_m_pca(m_pca: number): void;
+    m_pca: number;
+    get_m_mode(): number;
+    set_m_mode(m_mode: number): void;
+    m_mode: number;
+    get_m_convexhullApproximation(): number;
+    set_m_convexhullApproximation(m_convexhullApproximation: number): void;
+    m_convexhullApproximation: number;
+    get_m_oclAcceleration(): number;
+    set_m_oclAcceleration(m_oclAcceleration: number): void;
+    m_oclAcceleration: number;
+  }
+  class ConvexHull {
+    constructor();
+    get_m_points(index: number): number;
+    set_m_points(index: number, m_points: number): void;
+    readonly m_points: number;
+    get_m_triangles(index: number): number;
+    set_m_triangles(index: number, m_triangles: number): void;
+    readonly m_triangles: number;
+    get_m_nPoints(): number;
+    set_m_nPoints(m_nPoints: number): void;
+    readonly m_nPoints: number;
+    get_m_nTriangles(): number;
+    set_m_nTriangles(m_nTriangles: number): void;
+    readonly m_nTriangles: number;
+  }
 }
-
-}
-

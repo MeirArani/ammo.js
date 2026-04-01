@@ -1,0 +1,2 @@
+/Users/icer/source/hubs/emsdk/upstream/emscripten/emar qc libVHACD.a CMakeFiles/VHACD.dir/src/VHACD.cpp.o CMakeFiles/VHACD.dir/src/vhacdICHull.cpp.o CMakeFiles/VHACD.dir/src/vhacdManifoldMesh.cpp.o CMakeFiles/VHACD.dir/src/vhacdMesh.cpp.o CMakeFiles/VHACD.dir/src/vhacdVolume.cpp.o
+/Users/icer/source/hubs/emsdk/upstream/emscripten/emranlib libVHACD.a

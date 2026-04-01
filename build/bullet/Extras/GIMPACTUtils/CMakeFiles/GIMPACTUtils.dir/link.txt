@@ -1,0 +1,2 @@
+/Users/icer/source/hubs/emsdk/upstream/emscripten/emar qc libGIMPACTUtils.a CMakeFiles/GIMPACTUtils.dir/btGImpactConvexDecompositionShape.cpp.o
+/Users/icer/source/hubs/emsdk/upstream/emscripten/emranlib libGIMPACTUtils.a
