@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/ammo-javascript"
-  "ammo.js"
+  "ammo.mjs"
 )
 
 # Per-language clean rules from dependency scanning.

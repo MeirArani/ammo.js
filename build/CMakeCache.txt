@@ -48,7 +48,7 @@ CMAKE_BUILD_TYPE:STRING=Release
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
 //Path to the emulator for the target system.
-CMAKE_CROSSCOMPILING_EMULATOR:FILEPATH=/Users/icer/.nvm/versions/node/v24.7.0/bin/node
+CMAKE_CROSSCOMPILING_EMULATOR:FILEPATH=/Users/icer/source/hubs/hubs-compose/node/bin/nodejs
 
 //Flags used by the CXX compiler during all build types.
 CMAKE_CXX_FLAGS:STRING=
@@ -245,7 +245,7 @@ LIB_DESTINATION:STRING=/Users/icer/source/hubs/emsdk/upstream/emscripten/cache/s
 LIB_SUFFIX:STRING=
 
 //Path to a program.
-NODE_JS_EXECUTABLE:FILEPATH=/Users/icer/.nvm/versions/node/v24.7.0/bin/node
+NODE_JS_EXECUTABLE:FILEPATH=/Users/icer/source/hubs/hubs-compose/node/bin/nodejs
 
 //Path to a file.
 OPENGL_EGL_INCLUDE_DIR:PATH=/Users/icer/source/hubs/emsdk/upstream/emscripten/cache/sysroot/include
@@ -455,6 +455,8 @@ CMAKE_UNAME:INTERNAL=/usr/bin/uname
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //If true, we are targeting Emscripten output.
 EMSCRIPTEN:INTERNAL=1
+//Details about finding OpenGL
+FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[GL][/Users/icer/source/hubs/emsdk/upstream/emscripten/cache/sysroot/include][ ][v()]
 //Details about finding Python3
 FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[/opt/homebrew/Frameworks/Python.framework/Versions/3.14/bin/python3.14][found components: Interpreter ][v3.14.1()]
 //ADVANCED property for variable: OPENGL_EGL_INCLUDE_DIR
@@ -494,6 +496,8 @@ _Python3_EXECUTABLE:INTERNAL=/opt/homebrew/Frameworks/Python.framework/Versions/
 //Python3 Properties
 _Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;14;1;64;<none>;cpython-314-darwin.so;abi3;/opt/homebrew/opt/python@3.14/Frameworks/Python.framework/Versions/3.14/lib/python3.14;/opt/homebrew/opt/python@3.14/Frameworks/Python.framework/Versions/3.14/lib/python3.14;/opt/homebrew/lib/python3.14/site-packages;/opt/homebrew/lib/python3.14/site-packages
 _Python3_INTERPRETER_SIGNATURE:INTERNAL=4da903b75b0cefdfd671caa39a759f65
+//Interpreter reason failure
+_Python3_Interpreter_REASON_FAILURE:INTERNAL=
 //NumPy reason failure
 _Python3_NumPy_REASON_FAILURE:INTERNAL=
 

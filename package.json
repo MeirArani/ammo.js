@@ -2,13 +2,13 @@
   "name": "@hubs/ammo.js",
   "version": "0.0.3",
   "description": "Direct port of the Bullet physics engine to JavaScript using Emscripten",
-  "main": "./dist/ammo.js",
-  "module": "./dist/ammo.js",
+  "main": "./dist/ammo.jms",
+  "module": "./dist/ammo.mjs",
   "exports": {
     ".": {
       "types": "./dist/ammo.d.ts",
-      "import": "./dist/ammo.js",
-      "require": "./dist/ammo.js"
+      "import": "./dist/ammo.mjs",
+      "require": "./dist/ammo.mjs"
     }
   },
   "repository": {
@@ -23,7 +23,9 @@
   "devDependencies": {
     "ava": "^3.11.0",
     "typescript": "^6.0.2",
+    "unwasm": "^0.5.3",
     "vite": "^8.0.3",
+    "vite-plugin-static-copy": "^4.0.0",
     "vite-plugin-top-level-await": "^1.6.0",
     "vite-plugin-wasm": "^3.6.0",
     "webidl-dts-gen": "^1.12.0",

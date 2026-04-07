@@ -79,7 +79,7 @@ glue.js: glue.cpp
 glue.o: glue.cpp
 glue.o: /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/ammo.h
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building ammo bindings"
-	emcc glue.cpp -c -I/Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/bullet/src/ -I/Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/bullet/Extras -include/Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/ammo.h -o glue.o
+	emcc glue.cpp -c -I/Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/bullet/src/ -I/Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/bullet/Extras -include/Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/ammo.h -g3 -gsource-map -o glue.o
 
 CMakeFiles/ammo-bindings.dir/codegen:
 .PHONY : CMakeFiles/ammo-bindings.dir/codegen

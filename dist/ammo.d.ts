@@ -1,4 +1,5 @@
 export default Ammo;
+
 declare function Ammo<T>(target?: T): Promise<T & typeof Ammo>;
 declare module "@hubs/ammo.js" {
   function destroy(obj: any): void;
@@ -34,13 +35,19 @@ declare module "@hubs/ammo.js" {
   class DebugDrawer extends btIDebugDraw {
     constructor();
     // @ts-expect-error: emscripten binder passes pointers, not wrapped classes
-    drawLine(from: number, to: number, color: number): void;
+    drawLine(from: btVector3, to: btVector3, color: btVector3): void;
     // @ts-expect-error: emscripten binder passes pointers, not wrapped classes
-    drawContactPoint(pointOnB: number, normalOnB: number, distance: number, lifeTime: number, color: number): void;
+    drawContactPoint(
+      pointOnB: btVector3,
+      normalOnB: btVector3,
+      distance: number,
+      lifeTime: number,
+      color: btVector3
+    ): void;
     // @ts-expect-error: emscripten binder passes pointers, not wrapped classes
-    reportErrorWarning(warningString: number): void;
+    reportErrorWarning(warningString: string): void;
     // @ts-expect-error: emscripten binder passes pointers, not wrapped classes
-    draw3dText(location: number, textString: number): void;
+    draw3dText(location: btVector3, textString: string): void;
     setDebugMode(debugMode: number): void;
     getDebugMode(): number;
   }

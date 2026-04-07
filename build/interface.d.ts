@@ -14,9 +14,13 @@ declare namespace RuntimeExports {
      * @return {string}
      */
     function UTF8ToString(ptr: number, maxBytesToRead?: number | undefined, ignoreNul?: boolean | undefined): string;
+    let HEAP32: Int32Array;
+    let HEAPF32: Float32Array;
+    let HEAPF64: Float64Array;
 }
 interface WasmModule {
   _webidl_free(_0: number): void;
+  _free(_0: number): void;
   _webidl_malloc(_0: number): number;
   _malloc(_0: number): number;
   _emscripten_bind_btCollisionShape_setLocalScaling_1(_0: number, _1: number): void;
@@ -234,6 +238,8 @@ interface WasmModule {
   _emscripten_bind_btDispatcher_getNumManifolds_0(_0: number): number;
   _emscripten_bind_btDispatcher_getManifoldByIndexInternal_1(_0: number, _1: number): number;
   _emscripten_bind_btDispatcher___destroy___0(_0: number): void;
+  _emscripten_bind_btBroadphaseInterface_getOverlappingPairCache_0(_0: number): number;
+  _emscripten_bind_btBroadphaseInterface___destroy___0(_0: number): void;
   _emscripten_bind_btGeneric6DofConstraint_btGeneric6DofConstraint_3(_0: number, _1: number, _2: number): number;
   _emscripten_bind_btGeneric6DofConstraint_btGeneric6DofConstraint_5(_0: number, _1: number, _2: number, _3: number, _4: number): number;
   _emscripten_bind_btGeneric6DofConstraint_setLinearLowerLimit_1(_0: number, _1: number): void;
@@ -823,10 +829,9 @@ interface WasmModule {
   _emscripten_bind_btAxisSweep3_btAxisSweep3_4(_0: number, _1: number, _2: number, _3: number): number;
   _emscripten_bind_btAxisSweep3_btAxisSweep3_5(_0: number, _1: number, _2: number, _3: number, _4: number): number;
   _emscripten_bind_btAxisSweep3___destroy___0(_0: number): void;
-  _emscripten_bind_btBroadphaseInterface_getOverlappingPairCache_0(_0: number): number;
-  _emscripten_bind_btBroadphaseInterface___destroy___0(_0: number): void;
   _emscripten_bind_btCollisionConfiguration___destroy___0(_0: number): void;
   _emscripten_bind_btDbvtBroadphase_btDbvtBroadphase_0(): number;
+  _emscripten_bind_btDbvtBroadphase_getOverlappingPairCache_0(_0: number): number;
   _emscripten_bind_btDbvtBroadphase___destroy___0(_0: number): void;
   _emscripten_bind_btBroadphaseProxy_get_m_collisionFilterGroup_0(_0: number): number;
   _emscripten_bind_btBroadphaseProxy_set_m_collisionFilterGroup_1(_0: number, _1: number): void;

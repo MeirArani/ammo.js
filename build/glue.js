@@ -1870,6 +1870,28 @@ btDispatcher.prototype['__destroy__'] = btDispatcher.prototype.__destroy__ = fun
   _emscripten_bind_btDispatcher___destroy___0(self);
 };
 
+// Interface: btBroadphaseInterface
+
+/** @suppress {undefinedVars, duplicate} @this{Object} */
+function btBroadphaseInterface() { throw "cannot construct a btBroadphaseInterface, no constructor in IDL" }
+btBroadphaseInterface.prototype = Object.create(WrapperObject.prototype);
+btBroadphaseInterface.prototype.constructor = btBroadphaseInterface;
+btBroadphaseInterface.prototype.__class__ = btBroadphaseInterface;
+btBroadphaseInterface.__cache__ = {};
+Module['btBroadphaseInterface'] = btBroadphaseInterface;
+/** @suppress {undefinedVars, duplicate} @this{Object} */
+btBroadphaseInterface.prototype['getOverlappingPairCache'] = btBroadphaseInterface.prototype.getOverlappingPairCache = function() {
+  var self = this.ptr;
+  return wrapPointer(_emscripten_bind_btBroadphaseInterface_getOverlappingPairCache_0(self), btOverlappingPairCache);
+};
+
+
+/** @suppress {undefinedVars, duplicate} @this{Object} */
+btBroadphaseInterface.prototype['__destroy__'] = btBroadphaseInterface.prototype.__destroy__ = function() {
+  var self = this.ptr;
+  _emscripten_bind_btBroadphaseInterface___destroy___0(self);
+};
+
 // Interface: btGeneric6DofConstraint
 
 /** @suppress {undefinedVars, duplicate} @this{Object} */
@@ -6394,28 +6416,6 @@ btAxisSweep3.prototype['__destroy__'] = btAxisSweep3.prototype.__destroy__ = fun
   _emscripten_bind_btAxisSweep3___destroy___0(self);
 };
 
-// Interface: btBroadphaseInterface
-
-/** @suppress {undefinedVars, duplicate} @this{Object} */
-function btBroadphaseInterface() { throw "cannot construct a btBroadphaseInterface, no constructor in IDL" }
-btBroadphaseInterface.prototype = Object.create(WrapperObject.prototype);
-btBroadphaseInterface.prototype.constructor = btBroadphaseInterface;
-btBroadphaseInterface.prototype.__class__ = btBroadphaseInterface;
-btBroadphaseInterface.__cache__ = {};
-Module['btBroadphaseInterface'] = btBroadphaseInterface;
-/** @suppress {undefinedVars, duplicate} @this{Object} */
-btBroadphaseInterface.prototype['getOverlappingPairCache'] = btBroadphaseInterface.prototype.getOverlappingPairCache = function() {
-  var self = this.ptr;
-  return wrapPointer(_emscripten_bind_btBroadphaseInterface_getOverlappingPairCache_0(self), btOverlappingPairCache);
-};
-
-
-/** @suppress {undefinedVars, duplicate} @this{Object} */
-btBroadphaseInterface.prototype['__destroy__'] = btBroadphaseInterface.prototype.__destroy__ = function() {
-  var self = this.ptr;
-  _emscripten_bind_btBroadphaseInterface___destroy___0(self);
-};
-
 // Interface: btCollisionConfiguration
 
 /** @suppress {undefinedVars, duplicate} @this{Object} */
@@ -6440,11 +6440,17 @@ function btDbvtBroadphase() {
   getCache(btDbvtBroadphase)[this.ptr] = this;
 };
 
-btDbvtBroadphase.prototype = Object.create(WrapperObject.prototype);
+btDbvtBroadphase.prototype = Object.create(btBroadphaseInterface.prototype);
 btDbvtBroadphase.prototype.constructor = btDbvtBroadphase;
 btDbvtBroadphase.prototype.__class__ = btDbvtBroadphase;
 btDbvtBroadphase.__cache__ = {};
 Module['btDbvtBroadphase'] = btDbvtBroadphase;
+/** @suppress {undefinedVars, duplicate} @this{Object} */
+btDbvtBroadphase.prototype['getOverlappingPairCache'] = btDbvtBroadphase.prototype.getOverlappingPairCache = function() {
+  var self = this.ptr;
+  return wrapPointer(_emscripten_bind_btDbvtBroadphase_getOverlappingPairCache_0(self), btOverlappingPairCache);
+};
+
 
 /** @suppress {undefinedVars, duplicate} @this{Object} */
 btDbvtBroadphase.prototype['__destroy__'] = btDbvtBroadphase.prototype.__destroy__ = function() {

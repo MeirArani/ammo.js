@@ -6,10 +6,10 @@ set(PYTHON ${Python3_EXECUTABLE} CACHE STRING "Python path")
 set(EMSCRIPTEN_ROOT $ENV{EMSDK}/upstream/emscripten CACHE STRING "Emscripten path")
 set(CMAKE_TOOLCHAIN_FILE ${EMSCRIPTEN_ROOT}/cmake/Modules/Platform/Emscripten.cmake)
 set(WEBIDL_BINDER_SCRIPT ${EMSCRIPTEN_ROOT}/tools/webidl_binder.py)
-set(AMMO_FRONT_MATTER_FILE ${CMAKE_CURRENT_SOURCE_DIR}/front-matter.js)
+set(AMMO_FRONT_MATTER_FILE ${CMAKE_CURRENT_SOURCE_DIR}/front-matter.mjs)
 set(AMMO_HEADER_FILE ${CMAKE_CURRENT_SOURCE_DIR}/ammo.h)
 set(AMMO_IDL_FILE ${CMAKE_CURRENT_SOURCE_DIR}/ammo.idl)
-set(AMMO_ONLOAD_FILE ${CMAKE_CURRENT_SOURCE_DIR}/onload.js)
+set(AMMO_ONLOAD_FILE ${CMAKE_CURRENT_SOURCE_DIR}/onload.mjs)
 set(BULLET_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bullet/src/)
 set(BULLET_EXTRAS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bullet/Extras)
 set(BUILD_EXTRAS ON)
@@ -35,20 +35,24 @@ set(TOTAL_MEMORY 67108864 CACHE STRING "Total Memory")
 set(ALLOW_MEMORY_GROWTH 0 CACHE STRING "Allow Memory Growth")
 
 set(EMCC_ARGS
-  --extern-pre-js ${AMMO_FRONT_MATTER_FILE}
-  --llvm-lto 1
+  --pre-js ${AMMO_FRONT_MATTER_FILE}
+  #--llvm-lto 1
   --post-js glue.js
   --post-js ${AMMO_ONLOAD_FILE}
-  -O3
+ # -O3
   -s ALLOW_MEMORY_GROWTH=${ALLOW_MEMORY_GROWTH}
   -s ALLOW_TABLE_GROWTH=1
-  -s EXPORTED_FUNCTIONS=["_malloc"]
-  -s EXPORTED_RUNTIME_METHODS=["UTF8ToString"]
+  -s EXPORTED_FUNCTIONS=["_malloc","_free"]
+  -s EXPORTED_RUNTIME_METHODS=["UTF8ToString","HEAP32","HEAPF32","HEAPF64"]
   -s EXPORT_NAME="Ammo"
   -s MODULARIZE=1
+  -s EXPORT_ES6=1
   -s NO_EXIT_RUNTIME=1
   -s NO_FILESYSTEM=1
   -s ENVIRONMENT=web
+  -s EXCEPTION_DEBUG=1
+  -s SYSCALL_DEBUG=1
+  -s LIBRARY_DEBUG=1
   -s TOTAL_MEMORY=${TOTAL_MEMORY})
 
 if(${CLOSURE})
@@ -63,12 +67,13 @@ else()
 endif()
 
 set(EMCC_JS_ARGS ${EMCC_ARGS}
-  -s LEGACY_VM_SUPPORT=1
+  #-s LEGACY_VM_SUPPORT=1
   -s SINGLE_FILE=1
   -s WASM=0)
 
 set(EMCC_WASM_ARGS ${EMCC_ARGS}
   -s BINARYEN_IGNORE_IMPLICIT_TRAPS=1
+#  -s WASM_ESM_INTEGRATION=1
   -s WASM=1)
 
 set(EMCC_GLUE_ARGS
@@ -93,7 +98,7 @@ add_custom_command(
   VERBATIM)
 add_custom_command(
   OUTPUT glue.o
-  COMMAND emcc glue.cpp ${EMCC_GLUE_ARGS} -o glue.o
+  COMMAND emcc glue.cpp ${EMCC_GLUE_ARGS} -g3 -gsource-map -o glue.o
   DEPENDS glue.cpp ${AMMO_HEADER_FILE}
   COMMENT "Building ammo bindings"
   VERBATIM)
@@ -102,19 +107,19 @@ add_custom_target(ammo-bindings ALL DEPENDS glue.js glue.o)
 
 #######################################
 add_custom_command(
-  OUTPUT ammo.js
-  COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_JS_ARGS} -o ammo.mjs --emit-tsd interface.d.ts
+  OUTPUT ammo.mjs
+  COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_JS_ARGS} -g3 -gsource-map -o ammo.mjs --emit-tsd interface.d.ts
   DEPENDS ammo-bindings ${AMMO_FRONT_MATTER_FILE} ${AMMO_ONLOAD_FILE} ${BULLET_TARGETS}
   COMMENT "Building ammo javascript"
   VERBATIM)
-add_custom_target(ammo-javascript ALL DEPENDS ammo.js)
+add_custom_target(ammo-javascript ALL DEPENDS ammo.mjs)
 
 
 #######################################
 add_custom_command(
-  OUTPUT ammo.wasm.js ammo.wasm
-  COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_WASM_ARGS} -o ammo.wasm.js
+  OUTPUT ammo.wasm.mjs ammo.wasm
+  COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_WASM_ARGS} -g3 -gsource-map -o ammo.wasm.mjs
   DEPENDS ammo-bindings ${AMMO_FRONT_MATTER_FILE} ${AMMO_ONLOAD_FILE} ${BULLET_TARGETS}
   COMMENT "Building ammo webassembly"
   VERBATIM)
-add_custom_target(ammo-wasm ALL DEPENDS ammo.wasm.js ammo.wasm)
+add_custom_target(ammo-wasm ALL DEPENDS ammo.wasm.mjs ammo.wasm)

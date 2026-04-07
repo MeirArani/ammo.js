@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/ammo-wasm"
   "ammo.wasm"
-  "ammo.wasm.js"
+  "ammo.wasm.mjs"
 )
 
 # Per-language clean rules from dependency scanning.

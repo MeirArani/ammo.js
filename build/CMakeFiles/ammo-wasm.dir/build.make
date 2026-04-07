@@ -66,21 +66,21 @@ include CMakeFiles/ammo-wasm.dir/compiler_depend.make
 # Include the progress variables for this target.
 include CMakeFiles/ammo-wasm.dir/progress.make
 
-CMakeFiles/ammo-wasm: ammo.wasm.js
+CMakeFiles/ammo-wasm: ammo.wasm.mjs
 CMakeFiles/ammo-wasm: ammo.wasm
 
-ammo.wasm.js: /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/front-matter.js
-ammo.wasm.js: /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/onload.js
-ammo.wasm.js: bullet/src/BulletCollision/libBulletCollision.a
-ammo.wasm.js: bullet/src/BulletDynamics/libBulletDynamics.a
-ammo.wasm.js: bullet/src/BulletSoftBody/libBulletSoftBody.a
-ammo.wasm.js: bullet/src/LinearMath/libLinearMath.a
-ammo.wasm.js: bullet/Extras/HACD/libHACD.a
-ammo.wasm.js: bullet/Extras/VHACD/libVHACD.a
+ammo.wasm.mjs: /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/front-matter.mjs
+ammo.wasm.mjs: /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/onload.mjs
+ammo.wasm.mjs: bullet/src/BulletCollision/libBulletCollision.a
+ammo.wasm.mjs: bullet/src/BulletDynamics/libBulletDynamics.a
+ammo.wasm.mjs: bullet/src/BulletSoftBody/libBulletSoftBody.a
+ammo.wasm.mjs: bullet/src/LinearMath/libLinearMath.a
+ammo.wasm.mjs: bullet/Extras/HACD/libHACD.a
+ammo.wasm.mjs: bullet/Extras/VHACD/libVHACD.a
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building ammo webassembly"
-	emcc glue.o /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/bullet/src/BulletCollision/libBulletCollision.a /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/bullet/src/BulletDynamics/libBulletDynamics.a /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/bullet/src/BulletSoftBody/libBulletSoftBody.a /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/bullet/src/LinearMath/libLinearMath.a /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/bullet/Extras/HACD/libHACD.a /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/bullet/Extras/VHACD/libVHACD.a --extern-pre-js /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/front-matter.js --llvm-lto 1 --post-js glue.js --post-js /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/onload.js -O3 -s ALLOW_MEMORY_GROWTH=0 -s ALLOW_TABLE_GROWTH=1 -s EXPORTED_FUNCTIONS=[\"_malloc\"] -s EXPORTED_RUNTIME_METHODS=[\"UTF8ToString\"] -s EXPORT_NAME=\"Ammo\" -s MODULARIZE=1 -s NO_EXIT_RUNTIME=1 -s NO_FILESYSTEM=1 -s ENVIRONMENT=web -s TOTAL_MEMORY=67108864 -s NO_DYNAMIC_EXECUTION=1 -s BINARYEN_IGNORE_IMPLICIT_TRAPS=1 -s WASM=1 -o ammo.wasm.js
+	emcc glue.o /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/bullet/src/BulletCollision/libBulletCollision.a /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/bullet/src/BulletDynamics/libBulletDynamics.a /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/bullet/src/BulletSoftBody/libBulletSoftBody.a /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/bullet/src/LinearMath/libLinearMath.a /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/bullet/Extras/HACD/libHACD.a /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/build/bullet/Extras/VHACD/libVHACD.a --pre-js /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/front-matter.mjs --post-js glue.js --post-js /Users/icer/source/hubs/hubs-compose/services/hubs/packages/ammo.js/onload.mjs -s ALLOW_MEMORY_GROWTH=0 -s ALLOW_TABLE_GROWTH=1 -s EXPORTED_FUNCTIONS=[\"_malloc\",\"_free\"] -s EXPORTED_RUNTIME_METHODS=[\"UTF8ToString\",\"HEAP32\",\"HEAPF32\",\"HEAPF64\"] -s EXPORT_NAME=\"Ammo\" -s MODULARIZE=1 -s EXPORT_ES6=1 -s NO_EXIT_RUNTIME=1 -s NO_FILESYSTEM=1 -s ENVIRONMENT=web -s EXCEPTION_DEBUG=1 -s SYSCALL_DEBUG=1 -s LIBRARY_DEBUG=1 -s TOTAL_MEMORY=67108864 -s NO_DYNAMIC_EXECUTION=1 -s BINARYEN_IGNORE_IMPLICIT_TRAPS=1 -s WASM=1 -g3 -gsource-map -o ammo.wasm.mjs
 
-ammo.wasm: ammo.wasm.js
+ammo.wasm: ammo.wasm.mjs
 	@$(CMAKE_COMMAND) -E touch_nocreate ammo.wasm
 
 CMakeFiles/ammo-wasm.dir/codegen:
@@ -88,7 +88,7 @@ CMakeFiles/ammo-wasm.dir/codegen:
 
 ammo-wasm: CMakeFiles/ammo-wasm
 ammo-wasm: ammo.wasm
-ammo-wasm: ammo.wasm.js
+ammo-wasm: ammo.wasm.mjs
 ammo-wasm: CMakeFiles/ammo-wasm.dir/build.make
 .PHONY : ammo-wasm
 

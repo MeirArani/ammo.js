@@ -1046,6 +1046,17 @@ void EMSCRIPTEN_KEEPALIVE emscripten_bind_btDispatcher___destroy___0(btDispatche
   delete self;
 }
 
+// Interface: btBroadphaseInterface
+
+
+btOverlappingPairCache* EMSCRIPTEN_KEEPALIVE emscripten_bind_btBroadphaseInterface_getOverlappingPairCache_0(btBroadphaseInterface* self) {
+  return self->getOverlappingPairCache();
+}
+
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_btBroadphaseInterface___destroy___0(btBroadphaseInterface* self) {
+  delete self;
+}
+
 // Interface: btGeneric6DofConstraint
 
 
@@ -3609,17 +3620,6 @@ void EMSCRIPTEN_KEEPALIVE emscripten_bind_btAxisSweep3___destroy___0(btAxisSweep
   delete self;
 }
 
-// Interface: btBroadphaseInterface
-
-
-btOverlappingPairCache* EMSCRIPTEN_KEEPALIVE emscripten_bind_btBroadphaseInterface_getOverlappingPairCache_0(btBroadphaseInterface* self) {
-  return self->getOverlappingPairCache();
-}
-
-void EMSCRIPTEN_KEEPALIVE emscripten_bind_btBroadphaseInterface___destroy___0(btBroadphaseInterface* self) {
-  delete self;
-}
-
 // Interface: btCollisionConfiguration
 
 
@@ -3632,6 +3632,10 @@ void EMSCRIPTEN_KEEPALIVE emscripten_bind_btCollisionConfiguration___destroy___0
 
 btDbvtBroadphase* EMSCRIPTEN_KEEPALIVE emscripten_bind_btDbvtBroadphase_btDbvtBroadphase_0() {
   return new btDbvtBroadphase();
+}
+
+btOverlappingPairCache* EMSCRIPTEN_KEEPALIVE emscripten_bind_btDbvtBroadphase_getOverlappingPairCache_0(btDbvtBroadphase* self) {
+  return self->getOverlappingPairCache();
 }
 
 void EMSCRIPTEN_KEEPALIVE emscripten_bind_btDbvtBroadphase___destroy___0(btDbvtBroadphase* self) {
